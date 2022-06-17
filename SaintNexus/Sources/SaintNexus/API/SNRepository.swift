@@ -8,21 +8,31 @@
 import Foundation
 
 class SNRepository {
-    private let service = SNService()
-    
-    func getActionList(of feature: SNFeature) async throws -> [SNActionItem] {
-        let data = try await service.getActionItems(of: feature)
+    func getActionItems(of feature: SNFeature) async throws -> Data {
+        guard let url = URL(string: feature.actionURL) else { throw SNError.invalidURL }
         
-        do {
-            return try JSONDecoder().decode([SNActionItem].self, from: data)
-        } catch {
-            throw SNError.failedToDecodeDataToActionItems
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse,
+              response.statusCode == 200 else {
+            throw SNError.failedToLoadDataFromServer
         }
+        
+        return data
     }
     
-    func getJSCode(from url: String) async throws -> String {
-        let data = try await service.getJSCode(from: url)
-        return String(decoding: data, as: UTF8.self)
+    func getJSCode(from url: String) async throws -> Data {
+        let url = url.replacingOccurrences(of: "http://", with: "https://")
+        guard let url = URL(string: url) else { throw SNError.invalidURL }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse,
+              response.statusCode == 200 else {
+            throw SNError.failedToLoadDataFromServer
+        }
+        
+        return data
     }
     
     deinit {

@@ -9,7 +9,7 @@ import UIKit
 import SaintNexus
 
 class FeatureViewController: UITableViewController {
-    private let viewModel = ViewModel()
+    private let viewModel = FeatureViewModel()
     private lazy var footerView: UITextView = mapFooterView()
     
     override func viewDidLoad() {
@@ -55,10 +55,10 @@ extension FeatureViewController {
                 switch viewModel.features[indexPath.row].action {
                 case .latestReportCard:
                     response = try await SaintNexus.shared.loadLatestReportCard()
-                case .personalInformation:
+                case .information:
                     response = try await SaintNexus.shared.loadPersonalInformation()
-                case .chapel:
-                    response = try await SaintNexus.shared.loadChapel()
+//                case .chapel:
+//                    response = try await SaintNexus.shared.loadChapel()
                 case .manuallyInput(_):
                     return
                 }

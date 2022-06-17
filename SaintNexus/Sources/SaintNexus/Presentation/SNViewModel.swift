@@ -10,8 +10,8 @@ import RxSwift
 import Foundation
 
 class SNViewModel: SNViewBindable {
-    private let repository = SNRepository()
-    private let interface = SNJSInterface()
+    private let service = SNService()
+    private let jsInterface = SNJSInterface()
     private var disposeBag = DisposeBag()
     
     private let timeoutDuration: Int = 10
@@ -20,13 +20,11 @@ class SNViewModel: SNViewBindable {
     var connectURL: Signal<String>
     var evaluateJavaScript: Signal<String>
     var errorOccured: Signal<Error>
-    var result: Signal<Any>
     var timeout: Signal<Void>
     
     private let _connectURL: PublishRelay<String> = PublishRelay<String>()
     private let _evaluateJavaScript: PublishRelay<String> = PublishRelay<String>()
     private let _errorOccured: PublishRelay<Error> = PublishRelay<Error>()
-    private let _result: PublishRelay<Any> = PublishRelay<Any>()
     private let _timeout: PublishRelay<Void> = PublishRelay<Void>()
     
     private var actionItems: [SNActionItem] = [SNActionItem]()
@@ -36,7 +34,7 @@ class SNViewModel: SNViewBindable {
         connectURL = _connectURL.asSignal(onErrorSignalWith: .empty())
         evaluateJavaScript = _evaluateJavaScript.asSignal(onErrorSignalWith: .empty())
         errorOccured = _errorOccured.asSignal(onErrorSignalWith: .empty())
-        result = _result.asSignal(onErrorSignalWith: .empty())
+        
         timeout = _timeout
             .take(1)
             .delay(.seconds(timeoutDuration), scheduler: MainScheduler.instance)
@@ -47,26 +45,6 @@ class SNViewModel: SNViewBindable {
                 self?.doAction(action)
             })
             .disposed(by: disposeBag)
-    }
-    
-    func parseMessage(_ message: String) async throws -> Any {
-        guard let data = message.data(using: .utf8) else {
-            throw SNError.failedToConvertStringToData
-        }
-        
-        let parsedData: SNResponse<SNSemesterReportCard>
-        
-        do {
-            parsedData = try JSONDecoder().decode(SNResponse<SNSemesterReportCard>.self, from: data)
-        } catch {
-            throw SNError.failedToDecodeDataToIntendedType
-        }
-        
-        if !(parsedData.status >= 200 && parsedData.status < 300) {
-            throw SNError.invalidData(data: parsedData)
-        }
-        
-        return parsedData
     }
     
     private func doAction(_ action: SNActionItem) {
@@ -116,15 +94,15 @@ class SNViewModel: SNViewBindable {
     private func actionWithdelay(about work: SNActionItem) async throws {
         if let value = work.value,
            let milliseconds = Int(value) {
-            try await Task.sleep(nanoseconds: UInt64(milliseconds * 1_000_000))
+            try await Task.sleep(nanoseconds: UInt64(milliseconds * 5 * 1_000_000))
         }
     }
     
     private func getJSQuery(from url: String, requiredTemplates: [String]?) async throws -> String {
-        var jsQuery = try await repository.getJSCode(from: url)
+        var jsQuery = try await service.getJSCode(from: url)
         
         if let requiredTemplates = requiredTemplates {
-            jsQuery = interface.replaceRequiredTemplates(jsCode: jsQuery, requiredTemplates: requiredTemplates)
+            jsQuery = jsInterface.replaceRequiredTemplates(jsCode: jsQuery, requiredTemplates: requiredTemplates)
         }
         
         return jsQuery
@@ -133,7 +111,7 @@ class SNViewModel: SNViewBindable {
     func loadActionItems(of feature: SNFeature) {
         Task {
             do {
-                try actionItems = await repository.getActionList(of: feature)
+                try actionItems = await service.getActionList(of: feature)
                 doNextAction()
             } catch {
                 _errorOccured.accept(error)

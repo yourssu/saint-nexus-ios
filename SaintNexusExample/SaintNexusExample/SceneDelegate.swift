@@ -16,10 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.tintColor = .systemPurple
         
-//        let featureViewController = FeatureViewController(style: .insetGrouped)
-//        featureViewController.title = "Feature"
-//        let featureNavigationController = UINavigationController(rootViewController: featureViewController)
-//        featureNavigationController.navigationBar.prefersLargeTitles = true
+        let featureViewController = FeatureViewController(style: .insetGrouped)
+        featureViewController.title = "Feature"
+        let featureNavigationController = UINavigationController(rootViewController: featureViewController)
+        featureNavigationController.navigationBar.prefersLargeTitles = true
         
         let manuallyInputViewController = ManuallyInputViewController()
         manuallyInputViewController.title = "Manually Input"
@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([
-//            featureNavigationController,
+            featureNavigationController,
             manuallyInputNavigationController,
             userDataInputNavigationController,
         ], animated: true)

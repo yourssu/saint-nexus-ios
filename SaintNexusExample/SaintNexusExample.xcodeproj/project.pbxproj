@@ -21,7 +21,7 @@
 		537D9B23284CAC22007ABBC1 /* UserDataInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D9B22284CAC22007ABBC1 /* UserDataInputViewController.swift */; };
 		537D9B25284CAC2F007ABBC1 /* UserDataInputViewController+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D9B24284CAC2F007ABBC1 /* UserDataInputViewController+Mapper.swift */; };
 		53DC0D9E280BBABF00AF8E9D /* SaintNexus in Frameworks */ = {isa = PBXBuildFile; productRef = 53DC0D9D280BBABF00AF8E9D /* SaintNexus */; };
-		53DC0DA0280BBEDA00AF8E9D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DC0D9F280BBEDA00AF8E9D /* ViewModel.swift */; };
+		53DC0DA0280BBEDA00AF8E9D /* FeatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DC0D9F280BBEDA00AF8E9D /* FeatureViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 		537D9B22284CAC22007ABBC1 /* UserDataInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataInputViewController.swift; sourceTree = "<group>"; };
 		537D9B24284CAC2F007ABBC1 /* UserDataInputViewController+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDataInputViewController+Mapper.swift"; sourceTree = "<group>"; };
 		53DC0D9B280BBA9C00AF8E9D /* SaintNexus */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SaintNexus; path = ../SaintNexus; sourceTree = "<group>"; };
-		53DC0D9F280BBEDA00AF8E9D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		53DC0D9F280BBEDA00AF8E9D /* FeatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +89,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5331177A285C2ED000CF1B08 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				53DC0D9F280BBEDA00AF8E9D /* FeatureViewModel.swift */,
+				5341AFBC280BB6EE00B7750C /* FeatureViewController.swift */,
+				53736E21283A846900C7E423 /* FeatureViewController+Mapper.swift */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		5331177B285C2ED500CF1B08 /* ManuallyInput */ = {
+			isa = PBXGroup;
+			children = (
+				537D9B1E284CA095007ABBC1 /* ManuallyInputViewController.swift */,
+				537D9B20284CA0B0007ABBC1 /* ManuallyInputViewController+Mapper.swift */,
+			);
+			path = ManuallyInput;
+			sourceTree = "<group>";
+		};
 		5341AFAC280BB6EE00B7750C = {
 			isa = PBXGroup;
 			children = (
@@ -116,11 +135,8 @@
 			children = (
 				5341AFB8280BB6EE00B7750C /* AppDelegate.swift */,
 				5341AFBA280BB6EE00B7750C /* SceneDelegate.swift */,
-				537D9B1E284CA095007ABBC1 /* ManuallyInputViewController.swift */,
-				537D9B20284CA0B0007ABBC1 /* ManuallyInputViewController+Mapper.swift */,
-				53DC0D9F280BBEDA00AF8E9D /* ViewModel.swift */,
-				5341AFBC280BB6EE00B7750C /* FeatureViewController.swift */,
-				53736E21283A846900C7E423 /* FeatureViewController+Mapper.swift */,
+				5331177B285C2ED500CF1B08 /* ManuallyInput */,
+				5331177A285C2ED000CF1B08 /* Feature */,
 				5341AFC1280BB6EF00B7750C /* Assets.xcassets */,
 				5341AFC3280BB6EF00B7750C /* LaunchScreen.storyboard */,
 				5341AFC6280BB6EF00B7750C /* Info.plist */,
@@ -299,7 +315,7 @@
 				537D9B25284CAC2F007ABBC1 /* UserDataInputViewController+Mapper.swift in Sources */,
 				5341AFB9280BB6EE00B7750C /* AppDelegate.swift in Sources */,
 				537D9B21284CA0B0007ABBC1 /* ManuallyInputViewController+Mapper.swift in Sources */,
-				53DC0DA0280BBEDA00AF8E9D /* ViewModel.swift in Sources */,
+				53DC0DA0280BBEDA00AF8E9D /* FeatureViewModel.swift in Sources */,
 				537D9B23284CAC22007ABBC1 /* UserDataInputViewController.swift in Sources */,
 				5341AFBB280BB6EE00B7750C /* SceneDelegate.swift in Sources */,
 				537D9B1F284CA095007ABBC1 /* ManuallyInputViewController.swift in Sources */,

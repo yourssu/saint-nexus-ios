@@ -13,7 +13,7 @@ public class SaintNexus {
     public var userData: [String: String] = [String: String]()
 
     @MainActor
-    public func getData(of feature: SNFeature) async throws -> Any {
+    public func getData(of feature: SNFeature) async throws -> String {
         let viewController = SNViewController(of: feature,
                                               with: SNViewModel())
         
@@ -29,19 +29,17 @@ public class SaintNexus {
     }
     
     public func loadLatestReportCard() async throws -> SNResponse<SNSemesterReportCard> {
-        return try await getData(of: .latestReportCard) as! SNResponse<SNSemesterReportCard>
-    }
-    
-    public func loadChapel() async throws -> SNResponse<SNSemesterReportCard> {
-        return try await getData(of: .latestReportCard) as! SNResponse<SNSemesterReportCard>
+        let responseString = try await getData(of: .latestReportCard)
+        return try SNResponse<SNSemesterReportCard>(from: responseString)
     }
     
     public func loadPersonalInformation() async throws -> SNResponse<SNPersonalInformation> {
-        return try await getData(of: .personalInformation) as! SNResponse<SNPersonalInformation>
+        let responseString = try await getData(of: .information)
+        return try SNResponse<SNPersonalInformation>(from: responseString)
     }
     
     public func loadManuallyInput(url: String) async throws -> String {
-        return try await getData(of: .manuallyInput(url)) as! String
+        return try await getData(of: .manuallyInput(url))
     }
 }
 

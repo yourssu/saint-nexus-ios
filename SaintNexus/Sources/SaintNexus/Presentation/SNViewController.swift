@@ -15,17 +15,16 @@ protocol SNViewBindable {
     var connectURL: Signal<String> { get }
     var evaluateJavaScript: Signal<String> { get }
     var errorOccured: Signal<Error> { get }
-    var result: Signal<Any> { get }
+//    var result: Signal<Any> { get }
     var timeout: Signal<Void> { get }
     
     //  Input
-    func parseMessage(_ message: String) async throws -> Any
     func loadActionItems(of feature: SNFeature)
 }
 
 class SNViewController: UIViewController, SNCoverViewAddable {
     
-    var continuation: CheckedContinuation<Any, Error>? = nil
+    var continuation: CheckedContinuation<String, Error>? = nil
     
     public var coverView: UIView?
     
@@ -64,13 +63,6 @@ class SNViewController: UIViewController, SNCoverViewAddable {
         viewModel.evaluateJavaScript
             .emit(onNext: { [weak self] jsCode in
                 self?.webView?.evaluateJavaScript(jsCode)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.result
-            .emit(onNext: { [weak self] result in
-                self?.continuation?.resume(returning: result)
-                self?.continuation = nil
             })
             .disposed(by: disposeBag)
         
@@ -139,16 +131,6 @@ extension SNViewController: WKScriptMessageHandler {
         guard let bodyString = message.body as? String else { return }
         continuation?.resume(returning: bodyString)
         continuation = nil
-//        Task {
-//            do {
-//                let result = try await viewModel.parseMessage(bodyString)
-//                continuation?.resume(returning: result)
-//                continuation = nil
-//            } catch {
-//                continuation?.resume(throwing: error)
-//                continuation = nil
-//            }
-//        }
     }
 }
 

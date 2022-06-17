@@ -16,8 +16,7 @@ public struct SNSemesterReportCard: Codable {
 public struct SNLectureReportCard: Codable {
     let code: String
     let title: String
-    //  웹에서부터 credit 으로 바뀌어야 함
-    let crdeit: Double
+    let credit: Double
     let score: String
     let grade: String
     let professorName: String

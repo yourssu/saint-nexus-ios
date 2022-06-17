@@ -7,6 +7,11 @@
 
 import Foundation
 
+/**
+ SNError는 파싱 과정에서 클라이언트 단독으로 발생한 에러만을 다룹니다.
+ 
+ 클라이언트 - Web 사이 error code로 약속 된 에러는 SNResponse의 status 코드를 통해 다뤄집니다.
+ */
 public enum SNError: Error {
     //  외부의 개입으로 데이터를 가져오기 전 VC가 닫힘
     case dismissed
