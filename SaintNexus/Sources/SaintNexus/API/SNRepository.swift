@@ -9,7 +9,8 @@ import Foundation
 
 class SNRepository {
     func getActionItems(of feature: SNFeature) async throws -> Data {
-        guard let url = URL(string: feature.actionURL) else { throw SNError.invalidURL }
+        let timestamp = Int64(Date().timeIntervalSince1970 * 1000)
+        guard let url = URL(string: "\(feature.actionURL)?t=\(timestamp)") else { throw SNError.invalidURL }
         
         let (data, response) = try await URLSession.shared.data(from: url)
         
@@ -23,7 +24,8 @@ class SNRepository {
     
     func getJSCode(from url: String) async throws -> Data {
         let url = url.replacingOccurrences(of: "http://", with: "https://")
-        guard let url = URL(string: url) else { throw SNError.invalidURL }
+        let timestamp = Int64(Date().timeIntervalSince1970 * 1000)
+        guard let url = URL(string: "\(url)?t=\(timestamp)") else { throw SNError.invalidURL }
         
         let (data, response) = try await URLSession.shared.data(from: url)
         
