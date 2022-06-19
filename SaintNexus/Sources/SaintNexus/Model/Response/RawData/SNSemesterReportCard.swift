@@ -8,16 +8,16 @@
 import Foundation
 
 public struct SNSemesterReportCard: Codable {
-    let year: String
-    let semester: String
-    let lectures: [SNLectureReportCard]
+    public let year: String
+    public let semester: String
+    public let lectures: [SNLectureReportCard]
 }
 
 public struct SNLectureReportCard: Codable {
-    let code: String
-    let title: String
-    let credit: Double
-    let score: String
-    let grade: String
-    let professorName: String
+    public let code: String
+    public let title: String
+    public let credit: Double
+    public let score: String
+    public let grade: String
+    public let professorName: String
 }

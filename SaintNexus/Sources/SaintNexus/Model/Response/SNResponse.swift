@@ -12,8 +12,7 @@ public struct SNResponse<T: Codable>: Codable {
     public let rdata: T?
     public let message: String?
     
-    init(from string: String) throws {
-        print(string)
+    public init(from string: String) throws {
         let data = Data(string.utf8)
         var parsedData: SNResponse<T>
         
@@ -32,7 +31,7 @@ public struct SNResponse<T: Codable>: Codable {
         self.message = parsedData.message
     }
     
-    init(
+    public init(
         status: Int,
         rdata: T?,
         message: String?

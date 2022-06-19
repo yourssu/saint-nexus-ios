@@ -15,7 +15,6 @@ protocol SNViewBindable {
     var connectURL: Signal<String> { get }
     var evaluateJavaScript: Signal<String> { get }
     var errorOccured: Signal<Error> { get }
-//    var result: Signal<Any> { get }
     var timeout: Signal<Void> { get }
     
     //  Input

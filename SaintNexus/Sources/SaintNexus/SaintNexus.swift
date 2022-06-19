@@ -30,11 +30,13 @@ public class SaintNexus {
     
     public func loadLatestReportCard() async throws -> SNResponse<SNSemesterReportCard> {
         let responseString = try await getData(of: .latestReportCard)
+        print(responseString)
         return try SNResponse<SNSemesterReportCard>(from: responseString)
     }
     
     public func loadPersonalInformation() async throws -> SNResponse<SNPersonalInformation> {
         let responseString = try await getData(of: .information)
+        print(responseString)
         return try SNResponse<SNPersonalInformation>(from: responseString)
     }
     

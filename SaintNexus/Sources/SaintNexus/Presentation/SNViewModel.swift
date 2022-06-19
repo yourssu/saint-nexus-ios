@@ -94,7 +94,7 @@ class SNViewModel: SNViewBindable {
     private func actionWithdelay(about work: SNActionItem) async throws {
         if let value = work.value,
            let milliseconds = Int(value) {
-            try await Task.sleep(nanoseconds: UInt64(milliseconds * 5 * 1_000_000))
+            try await Task.sleep(nanoseconds: UInt64(milliseconds * 1_000_000))
         }
     }
     
