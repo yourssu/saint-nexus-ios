@@ -16,7 +16,8 @@ class SNService {
         do {
             return try JSONDecoder().decode([SNActionItem].self, from: data)
         } catch {
-            throw SNError.failedToDecodeDataToActionItems
+            let dataDescription = String(decoding: data, as: UTF8.self)
+            throw SNError.failedToDecodeDataToActionItems(dataDescription: dataDescription)
         }
     }
     

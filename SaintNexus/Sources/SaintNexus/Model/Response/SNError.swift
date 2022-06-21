@@ -17,23 +17,20 @@ public enum SNError: Error {
     case dismissed
         
     //  String -> URL 형 변환에 실패함
-    case invalidURL
+    case invalidURL(url: String)
     
     //  서버로 부터 ActionItems 혹은 JSCode를 가져오는 것에 실패함
     case failedToLoadDataFromServer
     
-    //  String을 Data 타입으로 전환에 실패함
-    case failedToConvertStringToData
-    
     //  Data를 ActionItem으로 디코딩에 실패함
-    case failedToDecodeDataToActionItems
+    case failedToDecodeDataToActionItems(dataDescription: String)
     
     //  Data를 의도된 타입으로 디코딩에 실패함
-    case failedToDecodeDataToIntendedType
+    case failedToDecodeDataToIntendedType(dataDescription: String)
     
     //  웹뷰로부터 받은 값의 status code가 200번 대가 아님
-    case invalidData(data: Any)
+    case invalidData(status: Int, message: String?)
     
     //  마지막 스크립트가 실행된 후 일정 시간이 지남
-    case timeout
+    case clientTimeout
 }

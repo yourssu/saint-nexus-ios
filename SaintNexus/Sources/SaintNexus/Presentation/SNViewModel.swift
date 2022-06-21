@@ -14,7 +14,7 @@ class SNViewModel: SNViewBindable {
     private let jsInterface = SNJSInterface()
     private var disposeBag = DisposeBag()
     
-    private let timeoutDuration: Int = 10
+    private let timeoutDuration: Int = 30
     
     //  Output
     var connectURL: Signal<String>

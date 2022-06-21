@@ -19,11 +19,12 @@ public struct SNResponse<T: Codable>: Codable {
         do {
             parsedData = try JSONDecoder().decode(SNResponse<T>.self, from: data)
         } catch {
-            throw SNError.failedToDecodeDataToIntendedType
+            throw SNError.failedToDecodeDataToIntendedType(dataDescription: string)
         }
         
         if !(parsedData.status >= 200 && parsedData.status < 300) {
-            throw SNError.invalidData(data: parsedData)
+            throw SNError.invalidData(status: parsedData.status,
+                                      message: parsedData.message)
         }
         
         self.status = parsedData.status

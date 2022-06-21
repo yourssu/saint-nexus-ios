@@ -74,7 +74,7 @@ class SNViewController: UIViewController, SNCoverViewAddable {
         
         viewModel.timeout
             .emit(onNext: { [weak self] _ in
-                self?.continuation?.resume(throwing: SNError.timeout)
+                self?.continuation?.resume(throwing: SNError.clientTimeout)
                 self?.continuation = nil
             })
             .disposed(by: disposeBag)
