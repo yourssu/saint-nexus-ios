@@ -53,12 +53,14 @@ extension FeatureViewController {
                 let response: Any
                 
                 switch viewModel.features[indexPath.row].action {
+                case .validate:
+                    response = try await SaintNexus.shared.validateUser()
+                case .chapel:
+                    response = try await SaintNexus.shared.loadChapel()
                 case .latestReportCard:
                     response = try await SaintNexus.shared.loadLatestReportCard()
                 case .information:
                     response = try await SaintNexus.shared.loadPersonalInformation()
-//                case .chapel:
-//                    response = try await SaintNexus.shared.loadChapel()
                 case .manuallyInput(_):
                     return
                 }

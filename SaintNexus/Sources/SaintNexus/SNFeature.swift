@@ -8,15 +8,18 @@
 import Foundation
 
 public enum SNFeature {
+    case validate
     case information
-    //    case chapel
+    case chapel
     case latestReportCard
     case manuallyInput(String)
     
     public var actionURL: String {
         switch self {
-//        case .chapel:
-//            return "https://saint-nexus.yourssu.com/commands/getChapel-v1.json"
+        case .validate:
+            return "https://saint-nexus.yourssu.com/commands/validate-v1.json"
+        case .chapel:
+            return "https://saint-nexus.yourssu.com/commands/getChapel-v1.json"
         case .information:
             return "https://saint-nexus.yourssu.com/commands/getInformation-v1.json"
         case .latestReportCard:

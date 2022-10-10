@@ -28,6 +28,16 @@ public class SaintNexus {
         }
     }
     
+    public func validateUser() async throws -> SNResponse<String> {
+        let responseString = try await getData(of: .validate)
+        return try SNResponse<String>(from: responseString)
+    }
+    
+    public func loadChapel() async throws -> SNResponse<SNChapel> {
+        let responseString = try await getData(of: .chapel)
+        return try SNResponse<SNChapel>(from: responseString)
+    }
+    
     public func loadLatestReportCard() async throws -> SNResponse<SNSemesterReportCard> {
         let responseString = try await getData(of: .latestReportCard)
         return try SNResponse<SNSemesterReportCard>(from: responseString)

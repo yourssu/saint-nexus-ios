@@ -10,7 +10,8 @@ import SaintNexus
 
 class FeatureViewModel {
     let features: [Feature] = [
-//        Feature(name: "getChapel", action: .chapel),
+        Feature(name: "validate", action: .validate),
+        Feature(name: "getChapel", action: .chapel),
         Feature(name: "getInformation", action: .information),
         Feature(name: "getLatestReportCard", action: .latestReportCard),
     ]
