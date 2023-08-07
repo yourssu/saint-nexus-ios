@@ -5,23 +5,25 @@
 //  Created by Gyuni on 2022/04/17.
 //
 
-import RxCocoa
-import RxSwift
 import UIKit
 import WebKit
+import SwiftUI
+import Combine
 
 protocol SNViewBindable {
     //  Output
-    var connectURL: Signal<String> { get }
-    var evaluateJavaScript: Signal<String> { get }
-    var errorOccured: Signal<Error> { get }
-    var timeout: Signal<Void> { get }
+    var connectURL: PassthroughSubject<String, Never> { get }
+    var evaluateJavaScript: PassthroughSubject<String, Never> { get }
+    var errorOccured: PassthroughSubject<Error, Never> { get }
+    var timeout: PassthroughSubject<Void, Never> { get }
     
     //  Input
     func loadActionItems(of feature: SNFeature)
 }
 
-class SNViewController: UIViewController, SNCoverViewAddable {
+// Your SNUIViewModel and other supporting code remains the same as before.
+
+class SNViewController: UIViewController, SNCoverUIViewAddable {
     
     var continuation: CheckedContinuation<String, Error>? = nil
     
@@ -34,7 +36,7 @@ class SNViewController: UIViewController, SNCoverViewAddable {
     private let webConfiguration = WKWebViewConfiguration()
     private let contentController = WKUserContentController()
     
-    private var disposeBag = DisposeBag()
+    private var disposeBag = CancelBag()
     
     init(of feature: SNFeature,
          with viewModel: SNViewBindable) {
@@ -52,32 +54,36 @@ class SNViewController: UIViewController, SNCoverViewAddable {
     
     private func bind() {
         viewModel.connectURL
-            .emit(onNext: { [weak self] urlString in
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] urlString in
                 if let url = URL(string: urlString) {
                     self?.webView?.load(URLRequest(url: url))
                 }
             })
-            .disposed(by: disposeBag)
+            .store(in: disposeBag)
+
         
         viewModel.evaluateJavaScript
-            .emit(onNext: { [weak self] jsCode in
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] jsCode in
                 self?.webView?.evaluateJavaScript(jsCode)
+
             })
-            .disposed(by: disposeBag)
+            .store(in: disposeBag)
         
         viewModel.errorOccured
-            .emit(onNext: { [weak self] error in
+            .sink(receiveValue: { [weak self] error in
                 self?.continuation?.resume(throwing: error)
                 self?.continuation = nil
             })
-            .disposed(by: disposeBag)
+            .store(in: disposeBag)
         
         viewModel.timeout
-            .emit(onNext: { [weak self] _ in
+            .sink(receiveValue: { [weak self] _ in
                 self?.continuation?.resume(throwing: SNError.clientTimeout)
                 self?.continuation = nil
             })
-            .disposed(by: disposeBag)
+            .store(in: disposeBag)
     }
     
     override func loadView() {
@@ -126,7 +132,7 @@ class SNViewController: UIViewController, SNCoverViewAddable {
 extension SNViewController: WKScriptMessageHandler {
     //  메시지 받으면 실행 됨
     func userContentController(_ userContentController: WKUserContentController,
-                                      didReceive message: WKScriptMessage) {
+                               didReceive message: WKScriptMessage) {
         guard let bodyString = message.body as? String else { return }
         continuation?.resume(returning: bodyString)
         continuation = nil

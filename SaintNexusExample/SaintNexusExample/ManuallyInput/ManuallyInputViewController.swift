@@ -66,13 +66,13 @@ class ManuallyInputViewController: UIViewController {
 }
 
 extension ManuallyInputViewController: SNDelegate {
-    func pushOrPresent(saintNexusViewController viewController: UIViewController & SNCoverViewAddable) {
+    func pushOrPresent(saintNexusViewController viewController: UIViewController & SNCoverUIViewAddable) {
         viewController.navigationItem.largeTitleDisplayMode = .never
         
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverViewAddable) {
+    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverUIViewAddable) {
         viewController.navigationController?.popViewController(animated: true)
     }
 }

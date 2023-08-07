@@ -78,7 +78,7 @@ extension FeatureViewController {
 }
 
 extension FeatureViewController: SNDelegate {
-    func pushOrPresent(saintNexusViewController viewController: UIViewController & SNCoverViewAddable) {
+    func pushOrPresent(saintNexusViewController viewController: UIViewController & SNCoverUIViewAddable) {
         viewController.navigationItem.largeTitleDisplayMode = .never
         
 //        let coverView = mapCoverView()
@@ -87,7 +87,7 @@ extension FeatureViewController: SNDelegate {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverViewAddable) {
+    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverUIViewAddable) {
         viewController.navigationController?.popViewController(animated: true)
     }
 }

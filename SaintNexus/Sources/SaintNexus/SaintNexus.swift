@@ -14,8 +14,10 @@ public class SaintNexus {
 
     @MainActor
     public func getData(of feature: SNFeature) async throws -> String {
-        let viewController = SNViewController(of: feature,
-                                              with: SNViewModel())
+        let viewController = SNViewController(
+            of: feature,
+            with: SNViewModel()
+        )
         
         delegate?.pushOrPresent(saintNexusViewController: viewController)
         
@@ -54,6 +56,6 @@ public class SaintNexus {
 }
 
 public protocol SNDelegate: AnyObject {
-    func pushOrPresent(saintNexusViewController viewController : UIViewController & SNCoverViewAddable)
-    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverViewAddable)
+    func pushOrPresent(saintNexusViewController viewController : UIViewController & SNCoverUIViewAddable)
+    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverUIViewAddable)
 }
