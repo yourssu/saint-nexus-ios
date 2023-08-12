@@ -14,7 +14,6 @@ struct FeatureListView: View {
     @ObservedObject var viewModel = FeatureViewModel()
 
     @State private var webViewController: UIViewController?
-    @State private var isPresenting: Bool = false
     @State private var resultText: String = ""
 
     var body: some View {
@@ -54,14 +53,13 @@ struct FeatureListView: View {
             .navigationBarTitle("Feature")
             .onReceive(SaintNexus.shared.pushOrPresent) { viewcontroller in
                 webViewController = viewcontroller
-                isPresenting = true
             }
             .onReceive(SaintNexus.shared.dismissOrPop) { _ in
-                isPresenting = false
+                webViewController = nil
             }
             .sheet(isPresented: Binding<Bool>(
-                get: { webViewController != nil && isPresenting },
-                set: { isPresenting = $0 }
+                get: { webViewController != nil },
+                set: { _ in }
             ), onDismiss: {
                 webViewController = nil
             }) {
