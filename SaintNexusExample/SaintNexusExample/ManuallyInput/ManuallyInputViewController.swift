@@ -5,6 +5,7 @@
 //  Created by Gyuni on 2022/06/05.
 //
 
+import Combine
 import UIKit
 import SaintNexus
 
@@ -14,7 +15,29 @@ class ManuallyInputViewController: UIViewController {
     private lazy var button = mapButton()
     private lazy var resultTextView = mapResultTextView()
     private lazy var stackView = UIStackView()
-    
+
+    private var cancelBag = Set<AnyCancellable>()
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        SaintNexus.shared.pushOrPresent
+            .sink { [weak self] viewController in
+                viewController.navigationItem.largeTitleDisplayMode = .never
+                self?.navigationController?.pushViewController(viewController, animated: true)
+            }
+            .store(in: &cancelBag)
+
+        SaintNexus.shared.dismissOrPop
+            .sink { viewController in
+                self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancelBag)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "ManuallyInput"
@@ -43,9 +66,8 @@ class ManuallyInputViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        SaintNexus.shared.delegate = self
     }
+
 
     @objc func pushSNViewController() {
         Task {
@@ -62,17 +84,5 @@ class ManuallyInputViewController: UIViewController {
                 resultTextView.text = resultText
             }
         }
-    }
-}
-
-extension ManuallyInputViewController: SNDelegate {
-    func pushOrPresent(saintNexusViewController viewController: UIViewController & SNCoverViewAddable) {
-        viewController.navigationItem.largeTitleDisplayMode = .never
-        
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverViewAddable) {
-        viewController.navigationController?.popViewController(animated: true)
     }
 }

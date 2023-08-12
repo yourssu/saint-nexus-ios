@@ -1,12 +1,13 @@
 //
-//  SNCoverViewAddable.swift
+//  SNCoverUIViewAddable.swift
 //  
 //
 //  Created by Gyuni on 2022/05/22.
 //
 
 import UIKit
+import SwiftUI
 
-public protocol SNCoverViewAddable: AnyObject {
+public protocol SNCoverUIViewAddable: AnyObject {
     var coverView: UIView? { get set }
 }

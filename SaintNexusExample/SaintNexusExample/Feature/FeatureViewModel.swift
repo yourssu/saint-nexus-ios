@@ -8,7 +8,7 @@
 import Foundation
 import SaintNexus
 
-class FeatureViewModel {
+class FeatureViewModel: ObservableObject {
     let features: [Feature] = [
         Feature(name: "validate", action: .validate),
         Feature(name: "getChapel", action: .chapel),
@@ -18,6 +18,18 @@ class FeatureViewModel {
 }
 
 struct Feature {
+    let uuid: UUID = UUID()
     let name: String?
     let action: SNFeature
 }
+
+extension Feature: Hashable, Equatable {
+    static func == (lhs: Feature, rhs: Feature) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
+    }
+}
+
