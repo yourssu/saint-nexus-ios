@@ -5,22 +5,28 @@
 //  Created by Gyuni on 2022/04/17.
 //
 
+import Combine
 import UIKit
+import SwiftUI
 
 public class SaintNexus {
     public static let shared = SaintNexus()
-    public weak var delegate: SNDelegate?
     public var userData: [String: String] = [String: String]()
+
+    public let pushOrPresent = PassthroughSubject<UIViewController & SNCoverUIViewAddable, Never>()
+    public let dismissOrPop = PassthroughSubject<UIViewController & SNCoverUIViewAddable, Never>()
 
     @MainActor
     public func getData(of feature: SNFeature) async throws -> String {
-        let viewController = SNViewController(of: feature,
-                                              with: SNViewModel())
-        
-        delegate?.pushOrPresent(saintNexusViewController: viewController)
+        let viewController = SNViewController(
+            of: feature,
+            with: SNViewModel()
+        )
+
+        pushOrPresent.send(viewController)
         
         defer {
-            delegate?.dismissOrPop(saintNexusViewController: viewController)
+            dismissOrPop.send(viewController)
         }
         
         return try await withCheckedThrowingContinuation { continuation in
@@ -51,9 +57,4 @@ public class SaintNexus {
     public func loadManuallyInput(url: String) async throws -> String {
         return try await getData(of: .manuallyInput(url))
     }
-}
-
-public protocol SNDelegate: AnyObject {
-    func pushOrPresent(saintNexusViewController viewController : UIViewController & SNCoverViewAddable)
-    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverViewAddable)
 }
