@@ -13,7 +13,6 @@ import SwiftUI
 struct FeatureListView: View {
     @ObservedObject var viewModel = FeatureViewModel()
 
-    @State private var webViewController: UIViewController?
     @State private var resultText: String = ""
 
     var body: some View {
@@ -51,45 +50,12 @@ struct FeatureListView: View {
                 Text(resultText)
             }
             .navigationBarTitle("Feature")
-            .onReceive(SaintNexus.shared.pushOrPresent) { viewcontroller in
-                webViewController = viewcontroller
-            }
-            .onReceive(SaintNexus.shared.dismissOrPop) { _ in
-                webViewController = nil
-            }
-            .sheet(isPresented: Binding<Bool>(
-                get: { webViewController != nil },
-                set: { _ in }
-            ), onDismiss: {
-                webViewController = nil
-            }) {
-                if let webViewController {
-                    WebViewWrapper(viewController: webViewController)
-                        .overlay {
-                            Rectangle()
-                                .fill(.cyan)
-                                .ignoresSafeArea(.all)
-                        }
-                }
+            .saintNexusOnSheet {
+                EmptyView()
             }
         }
     }
 }
 
 
-struct WebViewWrapper: UIViewControllerRepresentable {
-    typealias UIViewControllerType = UIViewController
-
-    let viewController: UIViewController
-
-    func makeUIViewController(context: Context) -> UIViewControllerType {
-        return viewController
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        // Update the view controller if needed
-    }
-}
-
 final class FeatureHostingController: UIHostingController<FeatureListView> { }
-

@@ -58,3 +58,18 @@ public class SaintNexus {
         return try await getData(of: .manuallyInput(url))
     }
 }
+
+public protocol SNPublisher {
+    var webViewController: UIViewController? { get set }
+    var pushOrPresentPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> { get  }
+    var dismissOrPopPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> { get }
+}
+
+public extension SNPublisher {
+    var pushOrPresentPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> {
+        SaintNexus.shared.pushOrPresent.eraseToAnyPublisher()
+    }
+    var dismissOrPopPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> {
+        SaintNexus.shared.dismissOrPop.eraseToAnyPublisher()
+    }
+}
