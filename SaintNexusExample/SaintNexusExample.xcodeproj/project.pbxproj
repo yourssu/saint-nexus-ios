@@ -15,7 +15,6 @@
 		5341AFD0280BB6EF00B7750C /* SaintNexusExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341AFCF280BB6EF00B7750C /* SaintNexusExampleTests.swift */; };
 		5341AFDA280BB6EF00B7750C /* SaintNexusExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341AFD9280BB6EF00B7750C /* SaintNexusExampleUITests.swift */; };
 		5341AFDC280BB6EF00B7750C /* SaintNexusExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5341AFDB280BB6EF00B7750C /* SaintNexusExampleUITestsLaunchTests.swift */; };
-		53736E22283A846900C7E423 /* FeatureViewController+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53736E21283A846900C7E423 /* FeatureViewController+Mapper.swift */; };
 		537D9B1F284CA095007ABBC1 /* ManuallyInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D9B1E284CA095007ABBC1 /* ManuallyInputViewController.swift */; };
 		537D9B21284CA0B0007ABBC1 /* ManuallyInputViewController+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D9B20284CA0B0007ABBC1 /* ManuallyInputViewController+Mapper.swift */; };
 		537D9B23284CAC22007ABBC1 /* UserDataInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D9B22284CAC22007ABBC1 /* UserDataInputViewController.swift */; };
@@ -54,7 +53,6 @@
 		5341AFD5280BB6EF00B7750C /* SaintNexusExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaintNexusExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5341AFD9280BB6EF00B7750C /* SaintNexusExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaintNexusExampleUITests.swift; sourceTree = "<group>"; };
 		5341AFDB280BB6EF00B7750C /* SaintNexusExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaintNexusExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		53736E21283A846900C7E423 /* FeatureViewController+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeatureViewController+Mapper.swift"; sourceTree = "<group>"; };
 		537D9B1E284CA095007ABBC1 /* ManuallyInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyInputViewController.swift; sourceTree = "<group>"; };
 		537D9B20284CA0B0007ABBC1 /* ManuallyInputViewController+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManuallyInputViewController+Mapper.swift"; sourceTree = "<group>"; };
 		537D9B22284CAC22007ABBC1 /* UserDataInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataInputViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 			children = (
 				53DC0D9F280BBEDA00AF8E9D /* FeatureViewModel.swift */,
 				5341AFBC280BB6EE00B7750C /* FeatureViewController.swift */,
-				53736E21283A846900C7E423 /* FeatureViewController+Mapper.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -319,7 +316,6 @@
 				537D9B23284CAC22007ABBC1 /* UserDataInputViewController.swift in Sources */,
 				5341AFBB280BB6EE00B7750C /* SceneDelegate.swift in Sources */,
 				537D9B1F284CA095007ABBC1 /* ManuallyInputViewController.swift in Sources */,
-				53736E22283A846900C7E423 /* FeatureViewController+Mapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,9 +482,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2N3PMJ78CA;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SaintNexusExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -503,6 +499,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yourssu.SaintNexusExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -514,9 +511,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2N3PMJ78CA;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SaintNexusExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -531,6 +528,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yourssu.SaintNexusExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -542,14 +540,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 86886QH957;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yourssu.SaintNexusExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -562,14 +562,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 86886QH957;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yourssu.SaintNexusExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

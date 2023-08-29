@@ -5,22 +5,28 @@
 //  Created by Gyuni on 2022/04/17.
 //
 
+import Combine
 import UIKit
+import SwiftUI
 
 public class SaintNexus {
     public static let shared = SaintNexus()
-    public weak var delegate: SNDelegate?
     public var userData: [String: String] = [String: String]()
+
+    public let pushOrPresent = PassthroughSubject<UIViewController & SNCoverUIViewAddable, Never>()
+    public let dismissOrPop = PassthroughSubject<UIViewController & SNCoverUIViewAddable, Never>()
 
     @MainActor
     public func getData(of feature: SNFeature) async throws -> String {
-        let viewController = SNViewController(of: feature,
-                                              with: SNViewModel())
-        
-        delegate?.pushOrPresent(saintNexusViewController: viewController)
+        let viewController = SNViewController(
+            of: feature,
+            with: SNViewModel()
+        )
+
+        pushOrPresent.send(viewController)
         
         defer {
-            delegate?.dismissOrPop(saintNexusViewController: viewController)
+            dismissOrPop.send(viewController)
         }
         
         return try await withCheckedThrowingContinuation { continuation in
@@ -53,7 +59,17 @@ public class SaintNexus {
     }
 }
 
-public protocol SNDelegate: AnyObject {
-    func pushOrPresent(saintNexusViewController viewController : UIViewController & SNCoverViewAddable)
-    func dismissOrPop(saintNexusViewController viewController: UIViewController & SNCoverViewAddable)
+public protocol SNPublisher {
+    var webViewController: UIViewController? { get set }
+    var pushOrPresentPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> { get  }
+    var dismissOrPopPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> { get }
+}
+
+public extension SNPublisher {
+    var pushOrPresentPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> {
+        SaintNexus.shared.pushOrPresent.eraseToAnyPublisher()
+    }
+    var dismissOrPopPublisher: AnyPublisher<UIViewController & SNCoverUIViewAddable, Never> {
+        SaintNexus.shared.dismissOrPop.eraseToAnyPublisher()
+    }
 }
