@@ -17,6 +17,7 @@ class FeatureViewModel: ObservableObject {
         Feature(name: "getInformation", action: .information),
         Feature(name: "getLatestReportCard", action: .latestReportCard),
         Feature(name: "getSingleReport", action: .singleReport),
+        Feature(name: "getReports", action: .allReportList),
     ]
 }
 

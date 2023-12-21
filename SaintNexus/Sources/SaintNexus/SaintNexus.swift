@@ -59,6 +59,11 @@ public class SaintNexus {
         return try SNResponse<SNSemesterReportCard>(from: responseString)
     }
 
+    public func loadReports() async throws -> SNResponse<SNReportList> {
+        let responseString = try await getData(of: .allReportList)
+        return try SNResponse<SNReportList>(from: responseString)
+    }
+
     public func loadManuallyInput(url: String) async throws -> String {
         return try await getData(of: .manuallyInput(url))
     }

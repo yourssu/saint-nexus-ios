@@ -13,6 +13,7 @@ public enum SNFeature {
     case chapel
     case latestReportCard
     case singleReport
+    case allReportList
     case manuallyInput(String)
     
     public var actionURL: String {
@@ -27,6 +28,8 @@ public enum SNFeature {
             return "https://saint-nexus.yourssu.com/commands/getLatestReportCard-v1.json"
         case .singleReport:
             return "https://saint-nexus.yourssu.com/commands/getSingleReport-v1.json"
+        case .allReportList:
+            return "https://saint-nexus.yourssu.com/commands/getReports-v1.json"
         case .manuallyInput(let url):
             return url
         }

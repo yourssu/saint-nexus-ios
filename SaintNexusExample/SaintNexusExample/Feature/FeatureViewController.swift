@@ -35,6 +35,8 @@ struct FeatureListView: View {
                                     response = try await SaintNexus.shared.loadPersonalInformation()
                                 case .singleReport:
                                     response = try await SaintNexus.shared.loadSingleReport()
+                                case .allReportList:
+                                    response = try await SaintNexus.shared.loadReports()
                                 case .manuallyInput(_):
                                     return
                                 }
