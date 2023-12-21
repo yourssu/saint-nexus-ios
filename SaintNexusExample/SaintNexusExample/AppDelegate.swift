@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SaintNexus.shared.userData["id"] = "20192891"
         SaintNexus.shared.userData["pw"] = "1q2w3e4r!"
+        SaintNexus.shared.userData["year"] = "2022"
+        SaintNexus.shared.userData["semester"] = "1 학기"
         return true
     }
 

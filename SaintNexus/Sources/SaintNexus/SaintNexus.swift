@@ -53,7 +53,12 @@ public class SaintNexus {
         let responseString = try await getData(of: .information)
         return try SNResponse<SNPersonalInformation>(from: responseString)
     }
-    
+
+    public func loadSingleReport() async throws -> SNResponse<SNSemesterReportCard> {
+        let responseString = try await getData(of: .singleReport)
+        return try SNResponse<SNSemesterReportCard>(from: responseString)
+    }
+
     public func loadManuallyInput(url: String) async throws -> String {
         return try await getData(of: .manuallyInput(url))
     }
