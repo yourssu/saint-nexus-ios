@@ -12,6 +12,8 @@ class UserDataInputViewController: UIViewController {
 
     private lazy var idTextField = mapIDTextField()
     private lazy var pwTextField = mapPWTextField()
+    private lazy var yearTextField = mapYearTextField()
+    private lazy var semesterTextField = mapSemesterTextField()
     private lazy var spacer = UIView()
     private lazy var stackView = UIStackView()
     
@@ -29,6 +31,8 @@ class UserDataInputViewController: UIViewController {
         view.addSubview(stackView)
         stackView.addArrangedSubview(idTextField)
         stackView.addArrangedSubview(pwTextField)
+        stackView.addArrangedSubview(yearTextField)
+        stackView.addArrangedSubview(semesterTextField)
         stackView.addArrangedSubview(spacer)
         
         NSLayoutConstraint.activate([
@@ -40,6 +44,8 @@ class UserDataInputViewController: UIViewController {
         
         idTextField.delegate = self
         pwTextField.delegate = self
+        yearTextField.delegate = self
+        semesterTextField.delegate = self
     }
 }
 
@@ -50,6 +56,10 @@ extension UserDataInputViewController: UITextFieldDelegate {
             SaintNexus.shared.userData["id"] = textField.text
         case pwTextField:
             SaintNexus.shared.userData["pw"] = textField.text
+        case yearTextField:
+            SaintNexus.shared.userData["year"] = textField.text
+        case semesterTextField:
+            SaintNexus.shared.userData["semester"] = textField.text
         default:
             return
         }
