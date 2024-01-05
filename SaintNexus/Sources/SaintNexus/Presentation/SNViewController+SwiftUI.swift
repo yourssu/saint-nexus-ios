@@ -13,7 +13,7 @@ class WebViewControllerHolder: ObservableObject {
 }
 
 struct SaintNexusOnSheet<Cover: View>: ViewModifier {
-    @ObservedObject var holder = WebViewControllerHolder()
+    @StateObject var holder = WebViewControllerHolder()
 
     var coverView: () -> Cover
 
@@ -48,7 +48,7 @@ struct SaintNexusOnSheet<Cover: View>: ViewModifier {
 
 
 struct SaintNexusOnPush<Cover: View>: ViewModifier {
-    @ObservedObject var holder = WebViewControllerHolder()
+    @StateObject var holder = WebViewControllerHolder()
 
     var coverView: () -> Cover
 
